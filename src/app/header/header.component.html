@@ -1,0 +1,30 @@
+<!-- Nav Bar Start -->
+<div class="nav">
+    <div class="container">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <h4>{{usName}}</h4>
+            <a href="#" class="navbar-brand">MENU</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav mr-auto">
+                    <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"
+                        class="nav-item nav-link">Home</a>
+                    <a routerLink="/book-appointment" routerLinkActive="active" class="nav-item nav-link"
+                        *ngIf="loggedStatus && isPatient">Book Appointment</a>
+                    <a routerLink="/appointments" routerLinkActive="active" class="nav-item nav-link"
+                        *ngIf="loggedStatus && isDoctor">Appointments</a>
+                    <a routerLink="/login" routerLinkActive="active" class="nav-item nav-link"
+                        *ngIf="!loggedStatus">Login</a>
+                    <a routerLink="/register" routerLinkActive="active" class="nav-item nav-link"
+                        *ngIf="!loggedStatus">Register</a>
+                    <a routerLink="/logout" routerLinkActive="active" class="nav-item nav-link"
+                        *ngIf="loggedStatus">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Nav Bar End -->
