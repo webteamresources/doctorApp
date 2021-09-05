@@ -1,14 +1,12 @@
 {
-  "doctorsInfo": [
+  "usersInfo": [
     {
       "id": 1,
       "fullName": "Rupesh Mestry",
       "mobile": "9820160376",
       "emailid": "ramchat@gmail.com",
       "doctororpatient": "Doctor",
-      "password": "1234",
-      "bookedSlot": "",
-      "patientName": ""
+      "password": "1234"
     },
     {
       "id": 2,
@@ -16,29 +14,23 @@
       "mobile": "9870123245",
       "emailid": "roshan@gmail.com",
       "doctororpatient": "Doctor",
-      "password": "1234",
-      "bookedSlot": "",
-      "patientName": ""
-    }
-  ],
-  "usersInfo": [
+      "password": "1234"
+    },
     {
-      "id": 1,
-      "fullName": "ramchat007",
+      "id": 3,
+      "fullName": "R Mestry",
       "mobile": "9820160376",
       "emailid": "ramchat007@gmail.com",
       "doctororpatient": "Patient",
-      "password": "11111",
-      "bookedSlot": "2021-09-23"
+      "password": "11111"
     },
     {
-      "id": 2,
+      "id": 4,
       "fullName": "z",
       "mobile": "9820160376",
       "emailid": "ramchat007@z.com",
       "doctororpatient": "Patient",
-      "password": "11111",
-      "bookedSlot": ""
+      "password": "11111"
     },
     {
       "fullName": "Raj",
@@ -46,22 +38,18 @@
       "emailid": "raj@g.com",
       "doctororpatient": "Patient",
       "password": "11111",
-      "id": 3
-    }
-  ],
-  "bookinginfo": [
-    {
-      "id": 1,
-      "bookedSlot": "2021-09-08",
-      "patientEmail": "ramchat007@gmail.com",
-      "patientName": "ramchat007"
+      "id": 5
     },
     {
-      "id": 2,
-      "docId": 1,
-      "bookedSlot": "2021-09-23",
-      "patientName": "ramchat007",
-      "patientEmail": "ramchat007@gmail.com"
+      "fullName": "RAM",
+      "mobile": "1234567890",
+      "emailid": "abc@gmail.com",
+      "doctororpatient": "Patient",
+      "password": "1111",
+      "id": 6
     }
+  ],
+  "bookingInfo": [
+    {}
   ]
 }

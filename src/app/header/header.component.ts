@@ -9,15 +9,15 @@ import { TransferService } from 'src/services/transfer.service';
 })
 export class HeaderComponent implements OnInit {
   public loggedStatus: Boolean = false;
-  public isDoctor: Boolean = false;
-  public isPatient: Boolean = false;
+  public isDoctor: any;
+  public isPatient: any;
   public usName: any = ''
   constructor(private ls: LocalStorageService, private ts: TransferService) { }
 
   ngOnInit(): void {
-    var ans_name = localStorage.getItem('username');
-    var ans_storage = localStorage.getItem('useremail');
-    var doctorOrPatient: any = localStorage.getItem('doctororpatient');
+    var ans_name = this.ls.getData('username');
+    var ans_storage = this.ls.getData('useremail');
+    var patient: any = this.ls.getData('Patient');
     if (ans_storage === null) {
       this.loggedStatus = false
       this.usName = ''
@@ -26,28 +26,24 @@ export class HeaderComponent implements OnInit {
       this.loggedStatus = true;
       this.usName = ans_name;
     }
-
-    if (doctorOrPatient == 'Doctor') {
-      this.isPatient = false
-      this.isDoctor = true
-    } else if (doctorOrPatient == 'Patient') {
+    if (patient) {
       this.isPatient = true
       this.isDoctor = false
+    } else {
+      this.isPatient = false
+      this.isDoctor = true
     }
+    console.log(patient)
+    console.log(this.isPatient)
+    console.log(this.isDoctor)
 
     this.ts.obj_userData.subscribe(
       (res: any) => {
         if (res['loginStatus']) {
           this.usName = res['username']
           this.loggedStatus = res['loginStatus']
-
-          if (res['doctororpatient'] == 'Doctor') {
-            this.isPatient = false
-            this.isDoctor = true
-          } else {
-            this.isPatient = true
-            this.isDoctor = false
-          }
+          this.isPatient = res['patientStatus']
+          this.isDoctor = !res['patientStatus']
         } else {
           this.loggedStatus = false
           this.usName = ''

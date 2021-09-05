@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "doctorapp-324906": {
+      "hosting": {
+        "doctorApp": [
+          "doctorapp-324906"
+        ]
+      }
+    }
+  }
+}

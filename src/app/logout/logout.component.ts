@@ -14,9 +14,9 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     // localStorage.clear();
-    localStorage.removeItem('username');
-    localStorage.removeItem('useremail');
-    localStorage.removeItem('doctororpatient');
+    this.ls.removeData('username');
+    this.ls.removeData('useremail');
+    this.ls.removeData('Patient');
     this.ts.userDataToTransfer({ loginStatus: false, username: '' })
     this.router.navigate(['/']);
   }

@@ -1,26 +1,7 @@
 <form>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Sr. No</th>
-                <th scope="col">Doctor Name</th>
-                <th scope="col">Mobile</th>
-                <th scope="col">Email</th>
-                <th scope="col">Select Slot</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let doc of doctorList; index as i">
-                <th scope="row">{{i+1}}</th>
-                <td><span>{{doc.fullName}}</span></td>
-                <td>{{doc.mobile}}</td>
-                <td>{{doc.emailid}}</td>
-                <td><input type="date" class="form-control" #slotDate /></td>
-                <td><input type="button" class="btn btn-primary" value="Book Now"
-                        (click)="bookNow(doc.id, slotDate.value)">
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="City" aria-label="City">
+        </div>
+    </div>
 </form>

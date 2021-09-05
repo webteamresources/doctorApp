@@ -12,7 +12,7 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    let ans_storage = localStorage.getItem('useremail');
+    let ans_storage = this.ls.getData('useremail');
     if (ans_storage === null) {
       return true;
     }

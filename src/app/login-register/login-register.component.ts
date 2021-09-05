@@ -29,25 +29,36 @@ export class LoginRegisterComponent implements OnInit {
   });
 
   loginAction() {
-    this.crud.getData(`usersInfo?emailid=${this.loginForm.value.userName}` || `doctorsInfo?emailid=${this.loginForm.value.userName}`).subscribe(
+    var txtMail = this.loginForm.value.userName;
+    var txtPassword = this.loginForm.value.password;
+    this.crud.getData(`usersInfo?emailid=${txtMail}&password=${txtPassword}`).subscribe(
       (res: any) => {
         if (res.length > 0) {
           this.errMsgLogin = "User Logged In";
-          console.log(res)
           this.ls.storeData('username', res[0].fullName);
           this.ls.storeData('useremail', res[0].emailid);
-          this.ts.userDataToTransfer({ loginStatus: true, username: res[0].fullName })
+          if (res[0].doctororpatient === 'Patient') {
+            this.ls.storeData('Patient', true);
+            this.ts.userDataToTransfer({ loginStatus: true, patientStatus: true, username: res[0].fullName })
+          }
+          else if (res[0].doctororpatient === 'Doctor') {
+            this.ls.storeData('Patient', false);
+            this.ts.userDataToTransfer({ loginStatus: true, patientStatus: false, username: res[0].fullName })
+          }
+
           this.router.navigate(['/']);
         }
         else {
           this.errMsgLogin = "Invalid User";
         }
+      },
+      (err) => {
+        console.log(err)
       }
     )
-
   }
   registerAction() {
-    this.crud.getData(`usersInfo?emailid=${this.registerForm.value.emailid}` || `doctorsInfo?emailid=${this.registerForm.value.emailid}`).subscribe(
+    this.crud.getData(`usersInfo?emailid=${this.registerForm.value.emailid}`).subscribe(
       (res: any) => {
         if (res.length > 0) {
           this.errMsgRegister = "User already registered"

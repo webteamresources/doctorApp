@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'register', component: LoginRegisterComponent, canActivate: [LoginGuard] },
   { path: 'logout', component: LogoutComponent },
   { path: 'book-appointment', component: BookAppointmentComponent },
-  { path: 'appointments', component: AppointmentsComponent, canActivate: [AdminGuard] },
+  { path: 'appointments', component: AppointmentsComponent },
   { path: '', component: HomeComponent }
 ];
 

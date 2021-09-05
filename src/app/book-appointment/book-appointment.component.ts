@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/services/crud.service';
+import { LocalStorageService } from 'src/services/local-storage.service';
 
 @Component({
   selector: 'app-book-appointment',
@@ -10,9 +11,9 @@ export class BookAppointmentComponent implements OnInit {
   public doctorList: any = [];
   public patientList: any = [];
 
-  constructor(private crud: CrudService) { }
+  constructor(private crud: CrudService, private ls: LocalStorageService) { }
   loadDocotrs() {
-    this.crud.getData('doctorsInfo').subscribe(
+    this.crud.getData('bookingInfo').subscribe(
       (res: any) => {
         this.doctorList = res
       },
@@ -20,32 +21,22 @@ export class BookAppointmentComponent implements OnInit {
     );
   }
 
-  bookNow(id: any, slotDate: any) {
-    var patientName = localStorage.getItem('username')
-    var patientEmail = localStorage.getItem('useremail')
-    console.log(id, slotDate, patientName)
-    var obj: any = { docId: id, bookedSlot: slotDate, patientName: patientName, patientEmail: patientEmail };
-    // this.crud.updateData(path, obj).subscribe(
-    //   (res: any) => {
-    //     console.log(res)
-    //   },
-    //   (err: any) => {
-    //     console.log(err)
-    //   }
-    // );
-    this.crud.postData('bookinginfo', obj).subscribe(
+  bookNow(id: any, slotDate: any, slotTime: any) {
+    var patientName = this.ls.getData('username')
+    var patientEmail = this.ls.getData('useremail')
+    var obj: any = { docId: id, slotDate: slotDate, slotTime: slotTime, patientName: patientName, patientEmail: patientEmail };
+    this.crud.postData(`bookingInfo`, obj).subscribe(
       (res: any) => {
         console.log(res)
       },
       (err: any) => {
         console.log(err)
       }
-    );
-
+    )
   }
 
   ngOnInit(): void {
-    this.loadDocotrs()
+    this.loadDocotrs();
   }
 
 }

@@ -11,14 +11,15 @@ export class AdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let ans_storage: any = localStorage.getItem('useremail');
-    let ans_status: any = localStorage.getItem('doctororpatient');
+    let ans_storage: any = this.ls.getData('useremail');
+    let ans_status: any = this.ls.getData('Patient');
+    console.log(ans_status)
     if (ans_storage === null && ans_status === null) {
       this.route.navigate(['/login'])
       return false;
     }
     else {
-      if (ans_status == "Doctor") {
+      if (ans_status == false) {
         return true;
       }
       else {
