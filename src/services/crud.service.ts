@@ -21,6 +21,7 @@ export class CrudService {
     return result;
   }
   updateData(keypath: any, record: any) {
+    //collection nam + key:ID
     var finalPath = this.apiPath + keypath;
 
     var result = this.httpData.put(finalPath, record)

@@ -50,6 +50,37 @@
     }
   ],
   "bookingInfo": [
-    {}
+    {
+      "patientName": "123",
+      "mobile": "1111111111",
+      "docId": "1",
+      "slotDate": "2021-09-30",
+      "slotTime": "10:00 AM to 11:00 AM",
+      "id": 1
+    },
+    {
+      "patientName": "sdf",
+      "mobile": "1111111111",
+      "docId": "1",
+      "slotDate": "2021-10-01",
+      "slotTime": "10:00 AM to 11:00 AM",
+      "id": 2
+    },
+    {
+      "patientName": "sffdsf",
+      "mobile": "1111111111",
+      "docId": "1",
+      "slotDate": "2021-09-30",
+      "slotTime": "11:00 AM to 12:00 PM",
+      "id": 3
+    },
+    {
+      "patientName": "121",
+      "mobile": "1111111111",
+      "docId": "1",
+      "slotDate": "2021-09-30",
+      "slotTime": "12:00 PM to 01:00 PM",
+      "id": 4
+    }
   ]
 }

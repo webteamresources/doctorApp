@@ -1,7 +1,58 @@
-<form>
-    <div class="row align-items-center">
-        <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="City" aria-label="City">
+<form [formGroup]="bookingForm" *ngIf="bookForm"
+    (ngSubmit)="bookNow($event,patientName.value, mobile.value, selectDoctor.value, slotDate.value, slotTime.value)">
+    <div class="row justify-content-center" style="width: 50%;">
+        <div class="col-12">
+            <h3 class="mb-3">Book your appointment now.</h3>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-12">
+            <label>Enter Patient Name</label>
+            <input type="text" class="form-control" #patientName formControlName="patientName">
+            <small class="text-danger"
+                *ngIf="bookingForm.controls['patientName'].invalid && (bookingForm.controls['patientName'].dirty || bookingForm.controls['patientName'].touched)">Patient
+                Name is required</small>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="">Mobile Number</label>
+                <input type="text" class="form-control" #mobile placeholder="Mobile" formControlName="mobile">
+                <small class="text-danger" *ngIf="bookingForm.controls['mobile'].invalid && (bookingForm.controls['mobile'].dirty ||
+                    bookingForm.controls['mobile'].touched)">Mobile
+                    number required</small>
+            </div>
+        </div>
+        <div class="col-12">
+            <label>Select Doctor</label>
+            <select #selectDoctor formControlName="selectDoctor" class="form-control">
+                <option value="">Select</option>
+                <option value="{{doc.id}}" *ngFor="let doc of doctorList">{{doc.fullName}}</option>
+            </select>
+            <small class="text-danger"
+                *ngIf="bookingForm.controls['selectDoctor'].invalid && (bookingForm.controls['selectDoctor'].dirty || bookingForm.controls['selectDoctor'].touched)">Please
+                Select Doctor</small>
+        </div>
+        <div class="col-12">
+            <label>Select Date</label>
+            <input formControlName="slotDate" type="date" #slotDate class="form-control">
+            <small class="text-danger"
+                *ngIf="bookingForm.controls['slotDate'].invalid && (bookingForm.controls['slotDate'].dirty || bookingForm.controls['slotDate'].touched)">Please
+                Select Date</small>
+        </div>
+        <div class="col-12">
+            <label>Select Time</label>
+            <select #slotTime formControlName="slotTime" class="form-control">
+                <option value="">Select</option>
+                <option value="10:00 AM to 11:00 AM">10:00 AM to 11:00 AM</option>
+                <option value="11:00 AM to 12:00 PM">11:00 AM to 12:00 PM</option>
+                <option value="12:00 PM to 01:00 PM">12:00 PM to 01:00 PM</option>
+            </select>
+            <small class="text-danger"
+                *ngIf="bookingForm.controls['slotDate'].invalid && (bookingForm.controls['slotDate'].dirty || bookingForm.controls['slotDate'].touched)">Please
+                Select Time</small>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.valid">Book Now</button>
         </div>
     </div>
 </form>
+<p>{{msg}}</p>
