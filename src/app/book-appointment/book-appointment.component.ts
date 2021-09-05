@@ -10,8 +10,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class BookAppointmentComponent implements OnInit {
   public doctorList: any = [];
+  public bookingList: any = [];
   public msg: any = '';
-  public bookForm: any = true;
+  public bookForm: any;
+  public bookedDocName: any = [];
 
   constructor(private crud: CrudService, private ls: LocalStorageService, private fb: FormBuilder) { }
 
@@ -34,9 +36,29 @@ export class BookAppointmentComponent implements OnInit {
     );
   }
 
+  fetchBooking() {
+    var userEmail: any = this.ls.getData('useremail');
+    //bookedUserEmail
+    this.crud.getData(`bookingInfo?bookedUserEmail=${userEmail}`).subscribe(
+      (res) => {
+        if (res > 0) {
+          this.bookForm = true
+        } else {
+          this.bookingList = res;
+          this.bookForm = false;
+        }
+      },
+      (err) => { }
+    )
+  }
+  newBooking() {
+    this.bookForm = true;
+  }
+
   bookNow(e: any, patientName: any, mobile: any, selectDoctor: any, slotDate: any, slotTime: any) {
     e.preventDefault();
-    var obj: any = { patientName: patientName, mobile: mobile, docId: selectDoctor, slotDate: slotDate, slotTime: slotTime, };
+    var emailid = this.ls.getData('useremail');
+    var obj: any = { patientName: patientName, mobile: mobile, docId: selectDoctor, slotDate: slotDate, slotTime: slotTime, bookedUserEmail: emailid };
 
     if (patientName === '' || mobile === '' || selectDoctor === '' || slotDate === '' || slotTime === '') {
       console.log(obj)
@@ -57,6 +79,7 @@ export class BookAppointmentComponent implements OnInit {
               }
             );
             this.bookingForm.reset();
+            this.bookForm = false
             this.msg = `Your Booking Date is ${obj.slotDate} and Time is ${obj.slotTime}`
           }
         },
@@ -69,6 +92,7 @@ export class BookAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDocotrs();
+    this.fetchBooking();
   }
 
 }

@@ -6,13 +6,13 @@
         <div class="col-sm-4" *ngFor="let item of appointmentList">
             <div class="card">
                 <div class="card-header">
-                    {{item.patientName}}
+                    Name : {{item.patientName}}
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <p>{{item.patientEmail}}</p>
-                        <p>{{item.patientmobile}}</p>
-                        <footer class="blockquote-footer">{{item.bookedSlot | date}}</footer>
+                        <p>Mobile Number : {{item.mobile}}</p>
+                        <p>Date : {{item.slotDate | date}}</p>
+                        <p>Time : {{item.slotTime}}</p>
                     </blockquote>
                 </div>
             </div>

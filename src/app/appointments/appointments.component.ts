@@ -9,21 +9,21 @@ import { LocalStorageService } from 'src/services/local-storage.service';
 })
 export class AppointmentsComponent implements OnInit {
 
-  public appointmentList: any = [];
-  public emailLoggedIn: any;
+  public appointmentList: any;
+  public userid: any;
   public bookedSlot: any;
 
   constructor(private crud: CrudService, private ls: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.emailLoggedIn = this.ls.getData('useremail')
-    this.crud.getData(`doctorsInfo?emailid=${this.emailLoggedIn}`).subscribe(
+    this.userid = this.ls.getData('userid')
+    this.crud.getData(`bookingInfo?docId=${this.userid}`).subscribe(
       (res) => {
-        this.appointmentList = res;
-        if (this.appointmentList.bookedSlot == "") {
-          this.bookedSlot = false;
+        if (res > 0) {
+          this.bookedSlot = false
         } else {
-          this.bookedSlot = true;
+          this.appointmentList = res;
+          this.bookedSlot = true
         }
       },
       (err) => { }

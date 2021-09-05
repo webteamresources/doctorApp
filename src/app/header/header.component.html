@@ -15,7 +15,7 @@
                     <a routerLink="/book-appointment" routerLinkActive="active" class="nav-item nav-link"
                         *ngIf="loggedStatus && isPatient">Book Appointment</a>
                     <a routerLink="/appointments" routerLinkActive="active" class="nav-item nav-link"
-                        *ngIf="loggedStatus && isDoctor">Appointments</a>
+                        *ngIf="loggedStatus && isDoctor && !isPatient">Appointments</a>
                     <a routerLink="/login" routerLinkActive="active" class="nav-item nav-link"
                         *ngIf="!loggedStatus">Login</a>
                     <a routerLink="/register" routerLinkActive="active" class="nav-item nav-link"

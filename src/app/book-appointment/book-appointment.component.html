@@ -56,3 +56,29 @@
     </div>
 </form>
 <p>{{msg}}</p>
+
+<div class="row" *ngIf="!bookForm">
+    <div class="col-sm-4" *ngFor="let item of bookingList">
+        <div class="card">
+            <div class="card-header">
+                Name : {{item.patientName}}
+                <!-- <div *ngFor="let ans of doctorList">
+                    Doctor Name : {{ans.fullName}}
+                </div> -->
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>Mobile Number : {{item.mobile}}</p>
+                    <p>Date : {{item.slotDate | date}}</p>
+                    <p>Time : {{item.slotTime}}</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-12">
+        If you want to create new booking, Please click below.
+
+        <button class="btn btn-primary" (click)="newBooking()">Click Here</button>
+    </div>
+</div>

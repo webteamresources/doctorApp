@@ -37,12 +37,13 @@ export class LoginRegisterComponent implements OnInit {
           this.errMsgLogin = "User Logged In";
           this.ls.storeData('username', res[0].fullName);
           this.ls.storeData('useremail', res[0].emailid);
+          this.ls.storeData('userid', res[0].id);
           if (res[0].doctororpatient === 'Patient') {
             this.ls.storeData('Patient', true);
             this.ts.userDataToTransfer({ loginStatus: true, patientStatus: true, username: res[0].fullName })
           }
           else if (res[0].doctororpatient === 'Doctor') {
-            this.ls.storeData('Patient', false);
+            this.ls.storeData('Doctor', true);
             this.ts.userDataToTransfer({ loginStatus: true, patientStatus: false, username: res[0].fullName })
           }
 
