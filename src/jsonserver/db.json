@@ -94,6 +94,24 @@
       "slotTime": "10:00 AM to 11:00 AM",
       "bookedUserEmail": "raj@g.com",
       "id": 5
+    },
+    {
+      "patientName": "Rajesh",
+      "mobile": "1234567890",
+      "docId": "2",
+      "slotDate": "2021-09-15",
+      "slotTime": "11:00 AM to 12:00 PM",
+      "bookedUserEmail": "ramchat007@gmail.com",
+      "id": 6
+    },
+    {
+      "patientName": "abc",
+      "mobile": "1232123211",
+      "docId": "1",
+      "slotDate": "2021-09-23",
+      "slotTime": "10:00 AM to 11:00 AM",
+      "bookedUserEmail": "ramchat007@gmail.com",
+      "id": 7
     }
   ]
 }

@@ -12,6 +12,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SortByDatePipe } from './sort-by-date.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginRegisterComponent,
     BookAppointmentComponent,
     AppointmentsComponent,
-    LogoutComponent
+    LogoutComponent,
+    SortByDatePipe
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@
     No appointments for today
 </div>
 <div *ngIf="bookedSlot">
+    <h2>All bookings</h2>
     <div class="row">
         <div class="col-sm-4" *ngFor="let item of appointmentList">
             <div class="card">
@@ -11,7 +12,7 @@
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
                         <p>Mobile Number : {{item.mobile}}</p>
-                        <p>Date : {{item.slotDate | date}}</p>
+                        <p>Date : {{item.slotDate }}</p>
                         <p>Time : {{item.slotTime}}</p>
                     </blockquote>
                 </div>

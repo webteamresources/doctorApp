@@ -23,6 +23,9 @@ export class AppointmentsComponent implements OnInit {
           this.bookedSlot = false
         } else {
           this.appointmentList = res;
+          this.appointmentList.sort((a: any, b: any) => {
+            return a.slotDate - b.slotDate; // descending
+          })
           this.bookedSlot = true
         }
       },
