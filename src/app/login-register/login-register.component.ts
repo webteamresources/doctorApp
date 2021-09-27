@@ -97,6 +97,16 @@ export class LoginRegisterComponent implements OnInit {
       (error) => { }
     )
 
+    this.crud.updateData('doctorsInfo', this.registerForm.value).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.errMsgRegister = "User added"
+        this.registerForm.reset();
+      },
+      (err: any) => {
+        this.errMsgRegister = err;
+      }
+    )
 
 
   }
