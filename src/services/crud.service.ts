@@ -16,7 +16,7 @@ export class CrudService {
   // };
 
 
-  public apiPath: any = 'https://doctorapp-324906-default-rtdb.firebaseio.com/users.json';
+  public apiPath: any = 'https://doctorapp-324906-default-rtdb.firebaseio.com/';
 
   constructor(private httpData: HttpClient) { }
 
