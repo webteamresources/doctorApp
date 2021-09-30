@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   firebaseConfig: {
     apiKey: "AIzaSyDFMqjzPFcxmGjRj9SLFzhqDWSBtLzdeuo",
-    authDomain: "https://doctor-project.netlify.app/",
+    authDomain: "doctorapp-324906.firebaseapp.com",
     databaseURL: "https://doctorapp-324906-default-rtdb.firebaseio.com",
     projectId: "doctorapp-324906",
     storageBucket: "doctorapp-324906.appspot.com",
