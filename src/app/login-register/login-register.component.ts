@@ -29,10 +29,6 @@ export class LoginRegisterComponent implements OnInit {
   });
 
 
-  public txtMail = this.loginForm.value.userName;
-  public txtPassword = this.loginForm.value.password;
-
-
   // loginUser(para:any){
   // }
   loginAction() {
@@ -40,30 +36,56 @@ export class LoginRegisterComponent implements OnInit {
     this.crud.getData('usersInfo.json').subscribe(
       (res: any) => {
         var data: any = Object.values(res);
-        let obj = data.find((x: any) => {
-          x.emailid === this.txtMail
-          x.password === this.txtPassword
-        });
+        let obj: any = data.find((x: any) => x.emailid === this.loginForm.value.userName);
         if (obj == undefined || obj == null) {
           this.crud.getData('doctorsInfo.json').subscribe(
             (res: any) => {
               var data: any = Object.values(res);
-              let obj = data.find((x: any) => {
-                x.emailid === this.txtMail
-                x.password === this.txtPassword
-              });
+              let obj: any = data.find((x: any) => x.emailid === this.loginForm.value.userName);
               if (obj == undefined || obj == null) {
                 this.errMsgLogin = "Invalid User";
               }
               else {
-                console.log("I am a doctor")
+                if (obj.password == this.loginForm.value.password) {
+                  this.errMsgLogin = "User Logged In";
+                  this.ls.storeData('username', obj.fullName);
+                  this.ls.storeData('useremail', obj.emailid);
+                  // this.ls.storeData('userid', obj.id);
+                  this.ls.storeData('Doctor', true);
+                  this.ts.userDataToTransfer({ loginStatus: true, patientStatus: false, username: obj.fullName })
+                  this.router.navigate(['/']);
+                }
+                else {
+                  this.errMsgLogin = "password wrong";
+                  console.log("password wrong");
+                }
               }
-            });
+            },
+            (err) => {
+              console.log(err)
+            }
+          );
         }
         else {
-          console.log("I am a Patient")
+          if (obj.password == this.loginForm.value.password) {
+            this.errMsgLogin = "User Logged In";
+            this.ls.storeData('username', obj.fullName);
+            this.ls.storeData('useremail', obj.emailid);
+            // this.ls.storeData('userid', obj.id);
+            this.ls.storeData('Patient', true);
+            this.ts.userDataToTransfer({ loginStatus: true, patientStatus: true, username: obj.fullName })
+            this.router.navigate(['/']);
+          }
+          else {
+            this.errMsgLogin = "password wrong";
+            console.log("password wrong");
+          }
         }
-      });
+      },
+      (err) => {
+        console.log(err)
+      }
+    );
   }
 
   // loginAction() {
