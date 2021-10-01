@@ -28,36 +28,74 @@ export class LoginRegisterComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]// 
   });
 
-  loginAction() {
-    var txtMail = this.loginForm.value.userName;
-    var txtPassword = this.loginForm.value.password;
-    this.crud.getData(`usersInfo?emailid=${txtMail}&password=${txtPassword}`).subscribe(
-      (res: any) => {
-        if (res.length > 0) {
-          this.errMsgLogin = "User Logged In";
-          this.ls.storeData('username', res[0].fullName);
-          this.ls.storeData('useremail', res[0].emailid);
-          this.ls.storeData('userid', res[0].id);
-          if (res[0].doctororpatient === 'Patient') {
-            this.ls.storeData('Patient', true);
-            this.ts.userDataToTransfer({ loginStatus: true, patientStatus: true, username: res[0].fullName })
-          }
-          else if (res[0].doctororpatient === 'Doctor') {
-            this.ls.storeData('Doctor', true);
-            this.ts.userDataToTransfer({ loginStatus: true, patientStatus: false, username: res[0].fullName })
-          }
 
-          this.router.navigate(['/']);
+  public txtMail = this.loginForm.value.userName;
+  public txtPassword = this.loginForm.value.password;
+
+
+  // loginUser(para:any){
+  // }
+  loginAction() {
+
+    this.crud.getData('usersInfo.json').subscribe(
+      (res: any) => {
+        var data: any = Object.values(res);
+        let obj = data.find((x: any) => {
+          x.emailid === this.txtMail
+          x.password === this.txtPassword
+        });
+        if (obj == undefined || obj == null) {
+          this.crud.getData('doctorsInfo.json').subscribe(
+            (res: any) => {
+              var data: any = Object.values(res);
+              let obj = data.find((x: any) => {
+                x.emailid === this.txtMail
+                x.password === this.txtPassword
+              });
+              if (obj == undefined || obj == null) {
+                this.errMsgLogin = "Invalid User";
+              }
+              else {
+                console.log("I am a doctor")
+              }
+            });
         }
         else {
-          this.errMsgLogin = "Invalid User";
+          console.log("I am a Patient")
         }
-      },
-      (err) => {
-        console.log(err)
-      }
-    )
+      });
   }
+
+  // loginAction() {
+  //   var txtMail = this.loginForm.value.userName;
+  //   var txtPassword = this.loginForm.value.password;
+  //   this.crud.getData(`usersInfo?emailid=${txtMail}&password=${txtPassword}`).subscribe(
+  //     (res: any) => {
+  //       if (res.length > 0) {
+  //         this.errMsgLogin = "User Logged In";
+  //         this.ls.storeData('username', res[0].fullName);
+  //         this.ls.storeData('useremail', res[0].emailid);
+  //         this.ls.storeData('userid', res[0].id);
+  //         if (res[0].doctororpatient === 'Patient') {
+  //           this.ls.storeData('Patient', true);
+  //           this.ts.userDataToTransfer({ loginStatus: true, patientStatus: true, username: res[0].fullName })
+  //         }
+  //         else if (res[0].doctororpatient === 'Doctor') {
+  //           this.ls.storeData('Doctor', true);
+  //           this.ts.userDataToTransfer({ loginStatus: true, patientStatus: false, username: res[0].fullName })
+  //         }
+
+  //         this.router.navigate(['/']);
+  //       }
+  //       else {
+  //         this.errMsgLogin = "Invalid User";
+  //       }
+  //     },
+  //     (err) => {
+  //       console.log(err)
+  //     }
+  //   )
+  // }
   findUser(para: any) {
     this.crud.getData(para).subscribe(
       (res: any) => {
