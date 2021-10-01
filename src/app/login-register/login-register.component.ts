@@ -13,7 +13,7 @@ import { TransferService } from 'src/services/transfer.service';
 export class LoginRegisterComponent implements OnInit {
   public errMsgLogin = '';
   public errMsgRegister = '';
-  public userData = []
+  public jsonData = '';
   constructor(private fb: FormBuilder, private crud: CrudService, private ls: LocalStorageService, private router: Router, private ts: TransferService) { }
 
   loginForm = this.fb.group({
@@ -58,150 +58,37 @@ export class LoginRegisterComponent implements OnInit {
       }
     )
   }
-  registerAction() {
-    // this.crud.getData('doctorsInfo.json').subscribe(
-    //   (res: any) => {
-    //     console.log(res)
-    //     for (let i = 0; i < res.length; i++) {
-    //       if (res[i].emailid == this.registerForm.value.emailid) {
-    //         console.log("User already registered")
-    //       }
-    //     }
-    //     // if (res.length > 0) {
-    //     //   this.errMsgRegister = "User already registered"
-    //     //   this.registerForm.reset();
-    //     // }
-    //     // else {
-    //     //   if (this.registerForm.value.doctororpatient == 'Doctor') {
-    //     //     console.log("Dcotor")
-    //     //     this.crud.postData('doctorsInfo.json', this.registerForm.value).subscribe(
-    //     //       (res: any) => {
-    //     //         console.log(res);
-    //     //         this.errMsgRegister = "User added"
-    //     //         this.registerForm.reset();
-    //     //       },
-    //     //       (err: any) => {
-    //     //         this.errMsgRegister = err;
-    //     //       }
-    //     //     )
-    //     //   }
-    //     //   else {
-    //     //     console.log("Patient")
-    //     //     this.crud.postData('usersInfo.json', this.registerForm.value).subscribe(
-    //     //       (res: any) => {
-    //     //         console.log(res);
-    //     //         this.errMsgRegister = "User added"
-    //     //         this.registerForm.reset();
-    //     //       },
-    //     //       (err: any) => {
-    //     //         this.errMsgRegister = err;
-    //     //       }
-    //     //     )
-    //     //   }
-    //     // }
-    //   });
-    if (this.registerForm.value.doctororpatient == 'Patient') {
-      this.crud.getData('usersInfo.json').subscribe(
-        (res: any) => {
-          console.log(res)
-          for (let i = 0; i < res.length; i++) {
-            console.log(res[i].emailid)
-            if (res[i].emailid == this.registerForm.value.emailid) {
-              console.log("User already registered")
+  findUser(para: any) {
+    this.crud.getData(para).subscribe(
+      (res: any) => {
+        var data: any = Object.values(res);
+        let obj = data.find((x: any) => x.emailid === this.registerForm.value.emailid);
+        if (obj == undefined || obj == null) {
+          this.crud.postData(para, this.registerForm.value).subscribe(
+            (res: any) => {
+              console.log(res);
+              this.errMsgRegister = "User added"
+              this.registerForm.reset();
+            },
+            (err: any) => {
+              this.errMsgRegister = err;
             }
-          }
-          // this.crud.postData('usersInfo.json', this.registerForm.value).subscribe(
-          //   (res: any) => {
-          //     console.log(res);
-          //     this.errMsgRegister = "User added"
-          //     this.registerForm.reset();
-          //   },
-          //   (err: any) => {
-          //     this.errMsgRegister = err;
-          //   }
-          // )
-        });
+          )
+        }
+        else {
+          this.errMsgRegister = "User already registered"
+          this.registerForm.reset();
+        }
+      });
+  }
+  registerAction() {
+    if (this.registerForm.value.doctororpatient == 'Patient') {
+      this.jsonData = 'usersInfo.json';
+      this.findUser(this.jsonData);
     } else {
-      this.crud.getData('doctorsInfo.json').subscribe(
-        (res: any) => {
-          console.log(res);
-          // this.crud.postData('doctorsInfo.json', this.registerForm.value).subscribe(
-          //   (res: any) => {
-          //     this.errMsgRegister = "User added"
-          //     this.registerForm.reset();
-          //   },
-          //   (err: any) => {
-          //     this.errMsgRegister = err;
-          //   }
-          // )
-
-          // Object.keys(res).map(index => {
-          //   let user = res[index];
-          //   return user;
-          // });
-          // console.log(this.userData)
-          // this.userData.forEach(function (value: any) {
-          //   console.log(value.emailid)
-          // });
-          // for (var i = 0; i < res.length; i++) {
-          //   console.log(res[i].emailid)
-          //   if (res[i].emailid == this.registerForm.value.emailid) {
-          //     console.log("User already registered")
-          //   }
-          // }
-          // this.crud.postData('doctorsInfo.json', this.registerForm.value).subscribe(
-          //   (res: any) => {
-          //     console.log(res);
-          //     this.errMsgRegister = "User added"
-          //     this.registerForm.reset();
-          //   },
-          //   (err: any) => {
-          //     this.errMsgRegister = err;
-          //   }
-          // )
-        });
+      this.jsonData = 'doctorsInfo.json';
+      this.findUser(this.jsonData);
     }
-
-    // this.crud.getData(`usersInfo?emailid=${this.registerForm.value.emailid}`).subscribe(
-    //   (res: any) => {
-    //     if (res.length > 0) {
-    //       this.errMsgRegister = "User already registered"
-    //       this.registerForm.reset();
-    //     }
-    //     else {
-    //       if (this.registerForm.value.doctororpatient == 'Doctor') {
-    //         console.log("Dcotor")
-    //         this.crud.postData('doctorsInfo.json', this.registerForm.value).subscribe(
-    //           (res: any) => {
-    //             console.log(res);
-    //             this.errMsgRegister = "User added"
-    //             this.registerForm.reset();
-    //           },
-    //           (err: any) => {
-    //             this.errMsgRegister = err;
-    //           }
-    //         )
-    //       }
-    //       else {
-    //         console.log("Patient")
-    //         this.crud.postData('usersInfo.json', this.registerForm.value).subscribe(
-    //           (res: any) => {
-    //             console.log(res);
-    //             this.errMsgRegister = "User added"
-    //             this.registerForm.reset();
-    //           },
-    //           (err: any) => {
-    //             this.errMsgRegister = err;
-    //           }
-    //         )
-    //       }
-    //     }
-    //   },
-    //   (error) => { }
-    // )
-
-
-
   }
 
   ngOnInit(): void {
